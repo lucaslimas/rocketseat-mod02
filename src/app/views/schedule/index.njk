@@ -1,0 +1,20 @@
+{% for appointment in apps %}
+  {% if appointment.username %}
+      <div class="provider">
+        <div>
+          <img src="/files/{{appointment.useravatar}}" alt="avatar"/>
+          <strong>{{appointment.username}}</strong>
+        </div>
+          <label class="{% if appointment.available === false %}disabled{% endif %} schedule"  for="time-{{appointment.time}}">
+            {{ appointment.time }}
+          </label>
+      </div>
+
+
+  {% else %}
+      <label class="{% if appointment.available === false %}disabled{% endif %}"  for="time-{{appointment.time}}">
+      {{ appointment.time }}
+    </label>
+  {% endif %}
+
+{% endfor %}

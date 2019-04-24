@@ -11,18 +11,25 @@ class SessionController {
     })
 
     if (!user) {
-      console.log('usuário não encontrado')
+      req.flash('error', 'usuário não encontrado')
       return res.redirect('/')
     }
 
     if (!(await user.checkPassword(password))) {
-      console.log('Senha incorreta')
+      req.flash('error', 'Senha incorreta')
       return res.redirect('/')
     }
 
     req.session.user = user
 
-    return res.redirect('/dashboard')
+    return res.redirect('/app/dashboard')
+  }
+
+  async destroy (req, res) {
+    req.session.destroy(() => {
+      res.clearCookie('root')
+      return res.redirect('/')
+    })
   }
 }
 module.exports = new SessionController()

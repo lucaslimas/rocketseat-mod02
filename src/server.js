@@ -1,8 +1,9 @@
 const express = require('express')
 const session = require('express-session')
-const FileStore = require('session-file-store')(session)
+const LokiStore = require('connect-loki')(session)
 const path = require('path')
 const nunjucks = require('nunjucks')
+const flash = require('connect-flash')
 
 class App {
   constructor () {
@@ -15,11 +16,12 @@ class App {
   }
   midlewares () {
     this.express.use(express.urlencoded({ extended: false }))
+    this.express.use(flash())
     this.express.use(
       session({
         name: 'root',
-        store: new FileStore({
-          path: path.resolve(__dirname, '..', 'tmp', 'sessions')
+        store: new LokiStore({
+          path: path.resolve(__dirname, '..', 'tmp', 'sessions', 'root')
         }),
         secret: 'MyAppSecret',
         resave: true,

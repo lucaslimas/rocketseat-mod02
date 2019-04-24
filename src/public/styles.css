@@ -290,3 +290,8 @@ ul.providers {
 .main-wrapper .content form button:hover {
   background: #634dac;
 }
+
+.schedule {
+  background-color: #7159c1;
+  color: #fff;
+}
